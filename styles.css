@@ -10,21 +10,24 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #edf1f4;
+    background-color: #3b3c4d;
 }
 
 /*Corpo da calculadora*/
 
 .calculator{
     position: relative;
-    width: 340px;
+    width: 350px;
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 15px 15px 20px rgba(0,0,0,0.1),
-    -15px -15px 20px #fffb;
+    box-shadow: 
+    inset -5px -5px 20px rgba(0,0,0,0.1),
+    inset 5px 5px 10px rgba(255, 255, 255, 0.568);
     display: grid;
     align-items: center;
     justify-content: center;
+    background-color: #3f3e3e;
+
 }
 
 .calculator .buttons{
@@ -57,8 +60,8 @@ body{
     margin: 3px;
     border-style: none;
     background-color: rgb(231, 231, 231);
-    box-shadow: inset 5px 5px 20px rgba(0,0,0,0.1),
-    -5px -5px 10px rgba(255, 255, 255, 0.568);
+    box-shadow: inset -5px -5px 20px rgba(0,0,0,0.1),
+    inset 5px 5px 10px rgba(255, 255, 255, 0.568);
     user-select: none;
     min-width: 40px;
     display: flex;
@@ -67,15 +70,15 @@ body{
     font-size: 1.3em;
     color: rgb(0, 0, 0);
     font-weight: 400;
-    border: 2px solid #edf1f4;
+    border: 2px solid #404141c9;
     border-radius: 10px;
 }
 
 .calculator .buttons button:active{
-    box-shadow: inset 5px 5px 20px rgba(0,0,0,0.1),
-    inset -5px -5px 10px rgba(255, 255, 255, 0.568);
+    box-shadow: inset -5px -5px 20px rgba(0,0,0,0.1),
+    inset 5px 5px 10px rgba(10, 10, 10, 0.959);
     color: white;
-    background-color: rgba(218, 216, 216, 0.911);
+    background-color: rgba(235, 229, 229, 0.911);
 }
 
 .calculator .buttons button.clear-one{
