@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: consolas;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #edf1f4;
+}
+
+/*Corpo da calculadora*/
+
+.calculator{
+    position: relative;
+    width: 340px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 15px 15px 20px rgba(0,0,0,0.1),
+    -15px -15px 20px #fffb;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator .buttons{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+}
+.calculator .display{
+    position: relative;
+    display: grid;
+    user-select: none;
+    width: 100%;
+    text-align: end;
+    background-color: rgba(162, 180, 162, 0.705);
+    font-size: 36px;
+    font-weight: 500;
+    height: 100px;
+    line-height: 100px;
+    box-shadow: inset 5px 5px 20px rgba(0,0,0,0.1),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.568);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    padding: 0 10px;
+}
+
+.calculator .buttons button{
+    cursor: pointer;
+    position: relative;
+    padding: 20px;
+    margin: 3px;
+    border-style: none;
+    background-color: rgb(231, 231, 231);
+    box-shadow: inset 5px 5px 20px rgba(0,0,0,0.1),
+    -5px -5px 10px rgba(255, 255, 255, 0.568);
+    user-select: none;
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    border: 2px solid #edf1f4;
+    border-radius: 10px;
+}
+
+.calculator .buttons button:active{
+    box-shadow: inset 5px 5px 20px rgba(0,0,0,0.1),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.568);
+    color: white;
+    background-color: rgba(218, 216, 216, 0.911);
+}
+
+.calculator .buttons button.clear-one{
+    background-color: #ffee00b7;
+}
+
+.calculator .buttons button.clear-all{
+    background-color: #ff3e3eb7;
+}
+
+.calculator .buttons button.igual{
+    grid-column: span 2;
+    background-color: #3eff78b7;
+}
+
+.calculator .buttons button.soma{
+    grid-row: span 2;
+    background-color: #3eb2ffb7;
+}
