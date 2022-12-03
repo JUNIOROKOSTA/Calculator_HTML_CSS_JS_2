@@ -26,14 +26,14 @@ body{
     display: grid;
     align-items: center;
     justify-content: center;
-    background-color: #3f3e3e;
+    background-color: #e7e5e5;
 
 }
 
 .calculator .buttons{
     position: relative;
     display: grid;
-    grid-template-columns: repeat(5, 60px);
+    grid-template-columns: repeat(4, 80px);
 }
 .calculator .display{
     position: relative;
@@ -53,10 +53,27 @@ body{
     padding: 0 10px;
 }
 
+.calculator .data-hora{
+    position: relative;
+    display: flex;
+    user-select: none;
+    font-size: 16px;
+    font-weight: 500;
+    height: 0;
+    line-height: 100px;
+    align-items: center;
+    top: 15px;
+}
+
+.calculator .data-hora p{
+    padding-left: 10px;
+}
+
+
 .calculator .buttons button{
     cursor: pointer;
     position: relative;
-    padding: 20px;
+    padding: 16px;
     margin: 3px;
     border-style: none;
     background-color: rgb(231, 231, 231);
@@ -67,18 +84,20 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.3em;
+    font-size: 1.5em;
     color: rgb(0, 0, 0);
-    font-weight: 400;
-    border: 2px solid #404141c9;
+    font-weight: 600;
+    border: 2px solid #9e9e9ec9;
     border-radius: 10px;
 }
 
 .calculator .buttons button:active{
-    box-shadow: inset -5px -5px 20px rgba(0,0,0,0.1),
-    inset 5px 5px 10px rgba(10, 10, 10, 0.959);
-    color: white;
+    box-shadow: inset -5px -5px 20px rgba(59, 59, 59, 0.1),
+    inset 5px 5px 10px rgba(82, 74, 74, 0.959);
+    color: rgb(85, 23, 23);
     background-color: rgba(235, 229, 229, 0.911);
+    font-size: 1.35em;
+
 }
 
 .calculator .buttons button.clear-one{
@@ -90,7 +109,6 @@ body{
 }
 
 .calculator .buttons button.igual{
-    grid-column: span 2;
     background-color: #3eff78b7;
 }
 
@@ -98,3 +116,4 @@ body{
     grid-row: span 2;
     background-color: #3eb2ffb7;
 }
+
