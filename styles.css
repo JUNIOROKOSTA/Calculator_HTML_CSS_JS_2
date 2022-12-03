@@ -111,19 +111,19 @@ body{
 
 }
 
-.calculator .buttons button.clear-one{
+.calculator .buttons button.btn-ac{
     background-color: #ffee00b7;
 }
 
-.calculator .buttons button.clear-all{
+.calculator .buttons button.btn-ec{
     background-color: #ff3e3eb7;
 }
 
-.calculator .buttons button.igual{
+.calculator .buttons button.btn-igual{
     background-color: #3eff78b7;
 }
 
-.calculator .buttons button.soma{
+.calculator .buttons button.btn-soma{
     grid-row: span 2;
     background-color: #3eb2ffb7;
 }
