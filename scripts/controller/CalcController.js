@@ -21,7 +21,7 @@ class CalcController {
         setInterval(() => {
             this.setDisplayDateTime()
         }, 1000)
-
+        this.setValueToDisplay();
     }
 
     // END ###################################################################
@@ -30,10 +30,12 @@ class CalcController {
     
     clearAll(){
         this._operation = [];
+        this.setValueToDisplay();
     }
 
     clearEntry(){
         this.operation;
+        this.setValueToDisplay();
     }
 
     // END ###################################################################
@@ -62,17 +64,13 @@ class CalcController {
         
     }
 
-
-    // Método para adicionar elementos no array "_operation".
-
     // END ###################################################################
 
     // Método para adicionar elementos no array "_operation".
 
     addOperation(value){
-
-        this.operation = value
-        console.log(this._operation)
+        
+        this.operation = value;
 
     }
 
@@ -111,7 +109,7 @@ class CalcController {
                 break;
 
             case 'igual':
-                this.addOperation('=')
+                this.calcOperation()
                 break;
 
             case 'ponto':
@@ -134,6 +132,26 @@ class CalcController {
             default:
                 this.setError();
         }
+    }
+
+    // END ###################################################################
+
+    // Método adicionar os valores no display da calculadora.
+
+    setValueToDisplay(){
+        console.log(this._operation)
+        let lastNumber;
+        for(let i = this._operation.length-1; i >= 0; i--){
+            if(!this.isOperator(this._operation[i])){
+                lastNumber = this._operation[i]
+                break;
+            }
+        }
+        if(!lastNumber){
+            lastNumber = 0;
+        }
+        console.log(lastNumber)
+        this.displayCalc = lastNumber;
     }
 
     // END ###################################################################
@@ -218,35 +236,71 @@ class CalcController {
         
         if (isNaN(this.getLastOperation())){
             if(this.isOperator(value)){
-                console.log(' o valor é um upera')
+
                 this.setLastOperation(value);
             } else if(isNaN(value)){
 
             } else {
-                this._operation.push(value)
+                this.pushCalcOperation(value)
+                this.setValueToDisplay();
             }
         } else if(this.isOperator(value)){ 
             if (['.','=',].indexOf(value) > -1){
                 if(value === '.'){
                     this.setConct(value)
+                } else {
+                    
                 }
-                return true
             } else {
-                this._operation.push(value)
+                this.pushCalcOperation(value)
+                this.setValueToDisplay();
             }
         }else{
             this.setConct(value)
+            
         }
     }
 
     setConct(value){
         let concat = this.getLastOperation().toString() + value.toString();
-        this.setLastOperation(concat)
+        this.setLastOperation(parseInt(concat))
+
+        this.setValueToDisplay();
+    }
+
+    pushCalcOperation(value){
+        this._operation.push(value)
+        if(this._operation.length > 3 ){
+            this.calcOperation();
+        }
     }
 
     setLastOperation(value){
         this._operation[this._operation.length-1] = value
+
+        this.setValueToDisplay();
     }
+
+    calcOperation(){
+        let lastItem = '';
+        if (this._operation.length > 3){
+            let lastItem = this._operation.pop();
+        }
+        let result = eval((this._operation).join(''))
+
+        if (lastItem == '%'){
+            result = result / 100;
+            this._operation = [result]
+
+        } else {
+            this._operation = [result]
+            if ( lastItem){
+                this._operation.push(lastItem)
+            }
+        }
+        this.setValueToDisplay();
+    }
+
     // END ###################################################################
     
 
