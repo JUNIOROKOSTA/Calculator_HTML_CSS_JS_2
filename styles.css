@@ -111,11 +111,11 @@ body{
 
 }
 
-.calculator .buttons button.btn-ac{
+.calculator .buttons button.btn-ec{
     background-color: #ffee00b7;
 }
 
-.calculator .buttons button.btn-ec{
+.calculator .buttons button.btn-ac{
     background-color: #ff3e3eb7;
 }
 
