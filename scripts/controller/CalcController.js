@@ -3,14 +3,15 @@ class CalcController {
 
             this._lc = 'pt-br';
             this._operation = [];
-            this._displayCalc_el = document.querySelector('.display')
-            this._date_el = document.querySelector('.data')
-            this._time_el = document.querySelector('.hora')
+            this._displayCalc_el = document.querySelector('.display');
+            this._date_el = document.querySelector('.data');
+            this._time_el = document.querySelector('.hora');
 
 
             this.setDisplayDateTime();
             this.initialize();
-            this.eventsInitButtons()
+            this.eventsInitButtons();
+            this.eventsKeyBoard();
         }
         
     
@@ -26,6 +27,55 @@ class CalcController {
 
     // END ###################################################################
 
+    // Métodos capitura e trata eventos de teclado.
+
+    eventsKeyBoard(){
+
+        document.addEventListener('keyup', e=>{
+
+            switch (e.key){
+                case 'Escape':
+                    this.clearAll();
+                    break;
+    
+                case 'Backspace':
+                    this.clearEntry();
+                    break;
+    
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                case '%':
+                case '.':
+                    this.addOperation(e.key)
+                    break;
+    
+                case '=':
+                case 'Enter':
+                    this.calcOperation()
+                    break;
+    
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    this.addOperation(parseInt(e.key))
+                    break;
+
+            }
+        })
+
+    }
+
+    // END ###################################################################
+
     // Métodos dos botões AC e CE, limpar ultimo caracter e Limpar Tudo.
     
     clearAll(){
@@ -34,7 +84,7 @@ class CalcController {
     }
 
     clearEntry(){
-        this.operation;
+        this._operation.pop();
         this.setValueToDisplay();
     }
 
@@ -139,7 +189,7 @@ class CalcController {
     // Método adicionar os valores no display da calculadora.
 
     setValueToDisplay(){
-        console.log(this._operation)
+        
         let lastNumber;
         for(let i = this._operation.length-1; i >= 0; i--){
             if(!this.isOperator(this._operation[i])){
@@ -150,8 +200,8 @@ class CalcController {
         if(!lastNumber){
             lastNumber = 0;
         }
-        console.log(lastNumber)
         this.displayCalc = lastNumber;
+
     }
 
     // END ###################################################################
@@ -193,6 +243,10 @@ class CalcController {
     }
 
     set displayCalc(value) {
+        if(value.toString().length > 13){
+            this.setError();
+            return false;
+        }
             this._displayCalc_el.innerHTML = value;
         }
     
@@ -233,37 +287,57 @@ class CalcController {
     }
 
     set operation(value) {
-        
+
         if (isNaN(this.getLastOperation())){
             if(this.isOperator(value)){
-
                 this.setLastOperation(value);
-            } else if(isNaN(value)){
+
+            } else if(!isNaN(value)){
+
+                this.pushCalcOperation(value)
+                this.setValueToDisplay();                
 
             } else {
-                this.pushCalcOperation(value)
-                this.setValueToDisplay();
+                console.log('vazio')
+
             }
         } else if(this.isOperator(value)){ 
-            if (['.','=',].indexOf(value) > -1){
-                if(value === '.'){
-                    this.setConct(value)
-                } else {
-                    
-                }
-            } else {
-                this.pushCalcOperation(value)
-                this.setValueToDisplay();
-            }
+            this.pushCalcOperation(value)
+            this.setValueToDisplay();
+
         }else{
-            this.setConct(value)
+            if(value === '.'){       
+                this.ifDot();
+                return;
+            }else{
+                this.setConct(value)
+            }
             
         }
+
+
+    }
+
+    ifDot(){
+       let lastOperation = this.getLastOperation()
+
+       if(typeof(lastOperation) === 'string' && 
+       lastOperation.split('').indexOf('.') > -1){       
+        return;} 
+       
+       
+       if(this.isOperator(lastOperation) || !lastOperation){
+        this.pushCalcOperation('0.')
+       } else{
+        this.setLastOperation(lastOperation.toString()+ '.')
+       }
+
+       this.setValueToDisplay();
     }
 
     setConct(value){
         let concat = this.getLastOperation().toString() + value.toString();
-        this.setLastOperation(parseInt(concat))
+        this.setLastOperation(concat)
 
         this.setValueToDisplay();
     }
@@ -282,22 +356,27 @@ class CalcController {
     }
 
     calcOperation(){
-        let lastItem = '';
-        if (this._operation.length > 3){
-            let lastItem = this._operation.pop();
-        }
-        let result = eval((this._operation).join(''))
-
-        if (lastItem == '%'){
-            result = result / 100;
-            this._operation = [result]
-
-        } else {
-            this._operation = [result]
-            if ( lastItem){
-                this._operation.push(lastItem)
+        try{
+            let lastItem = '';
+            if (this._operation.length > 3){
+                let lastItem = this._operation.pop();
             }
+            let result = eval((this._operation).join(''))
+    
+            if (lastItem == '%'){
+                result = result / 100;
+                this._operation = [result.toString()]
+    
+            } else {
+                this._operation = [result.toString()]
+                if ( lastItem){
+                    this._operation.push(lastItem.toString())
+                }
+            }
+        } catch{
+            this.setError()
         }
+        
         this.setValueToDisplay();
     }
 

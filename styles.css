@@ -46,7 +46,7 @@ body{
     position: relative;
     display: grid;
     user-select: none;
-    width: 100%;
+    max-width: 320px;
     text-align: end;
     font-family:'display' ,'Times New Roman', Times, serif;
     background-color: rgba(162, 180, 162, 0.705);
